@@ -10,17 +10,16 @@ import axios from 'axios';
 
 @Injectable()
 export class UserService {
-
   private readonly reqresApiUrl: string;
   private readonly avatarsFolder = path.join(__dirname, '..', 'avatars');
 
   @InjectModel(Avatar.name) private avatarModel: Model<Avatar>;
-  
+
   constructor(private configService: ConfigService) {
-      this.reqresApiUrl = this.configService.get<string>('REQRES_API_URL');
-      if (!fs.existsSync(this.avatarsFolder)) {
-        fs.mkdirSync(this.avatarsFolder);
-      }
+    this.reqresApiUrl = this.configService.get<string>('REQRES_API_URL');
+    if (!fs.existsSync(this.avatarsFolder)) {
+      fs.mkdirSync(this.avatarsFolder);
+    }
   }
 
   async findOne(id: number) {
@@ -34,7 +33,7 @@ export class UserService {
     // Create a hash of the avatar data
     const hash = crypto.createHash('sha256').update(data.avatar).digest('hex');
 
-    const avatar = await this.avatarModel.findOne({ userId : id, hash });
+    const avatar = await this.avatarModel.findOne({ userId: id, hash });
 
     if (avatar) {
       const file = fs.readFileSync(avatar.filePath);
@@ -61,7 +60,7 @@ export class UserService {
     // Create a hash of the avatar data
     const hash = crypto.createHash('sha256').update(data.avatar).digest('hex');
 
-    const avatar = await this.avatarModel.findOne({ userId : id, hash });
+    const avatar = await this.avatarModel.findOne({ userId: id, hash });
 
     if (!avatar) {
       throw new NotFoundException();

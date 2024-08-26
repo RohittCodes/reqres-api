@@ -6,11 +6,11 @@ describe('UsersService', () => {
   let service: UsersService;
 
   const mockUserModel = {
-    "id": 7,
-    "email": "michael.lawson@reqres.in",
-    "first_name": "Michael",
-    "last_name": "Lawson",
-    "avatar": "https://reqres.in/img/faces/7-image.jpg"
+    id: 7,
+    email: 'michael.lawson@reqres.in',
+    first_name: 'Michael',
+    last_name: 'Lawson',
+    avatar: 'https://reqres.in/img/faces/7-image.jpg',
   };
 
   const mockService = {
@@ -25,7 +25,7 @@ describe('UsersService', () => {
         {
           provide: UsersService,
           useValue: mockService,
-        }
+        },
       ],
     }).compile();
 
@@ -33,28 +33,28 @@ describe('UsersService', () => {
   });
 
   describe('findAll', () => {
-      
-      it('should return all users', async () => {
-        jest.spyOn(service, 'findAll');
-        mockService.findAll.mockResolvedValue([mockUserModel]);
-  
-        const result = await service.findAll();
-  
-        expect(result).toEqual([mockUserModel]);
-      })
-    });
+    it('should return all users', async () => {
+      jest.spyOn(service, 'findAll');
+      mockService.findAll.mockResolvedValue([mockUserModel]);
 
-    describe('create', () => {
-      
-      it('should create a new user', async () => {
-        jest.spyOn(service, 'create');
-        mockService.create.mockResolvedValue(mockUserModel);
-  
-        const result = await service.create(mockUserModel as unknown as CreateUserDto);
-  
-        expect(result).toEqual(mockUserModel);
-      })
+      const result = await service.findAll();
+
+      expect(result).toEqual([mockUserModel]);
     });
+  });
+
+  describe('create', () => {
+    it('should create a new user', async () => {
+      jest.spyOn(service, 'create');
+      mockService.create.mockResolvedValue(mockUserModel);
+
+      const result = await service.create(
+        mockUserModel as unknown as CreateUserDto,
+      );
+
+      expect(result).toEqual(mockUserModel);
+    });
+  });
 
   it('should be defined', () => {
     expect(service).toBeDefined();

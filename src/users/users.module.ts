@@ -19,7 +19,7 @@ import { UserSchema } from './schemas/users.schema';
         },
       },
     ]),
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),    
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
   controllers: [UsersController],
   providers: [UsersService],

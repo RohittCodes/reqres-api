@@ -9,17 +9,11 @@ describe('UserService', () => {
   let model: any;
 
   const mockUserModel = {
-    "id": 7,
-    "email": "michael.lawson@reqres.in",
-    "first_name": "Michael",
-    "last_name": "Lawson",
-    "avatar": "https://reqres.in/img/faces/7-image.jpg"
-  };
-
-  const mockService = {
-    findOne: jest.fn(),
-    getAvatar: jest.fn(),
-    deleteAvatar: jest.fn(),
+    id: 7,
+    email: 'michael.lawson@reqres.in',
+    first_name: 'Michael',
+    last_name: 'Lawson',
+    avatar: 'https://reqres.in/img/faces/7-image.jpg',
   };
 
   beforeEach(async () => {
@@ -29,7 +23,7 @@ describe('UserService', () => {
         {
           provide: getModelToken(User.name),
           useValue: mockUserModel,
-        }
+        },
       ],
     }).compile();
 
@@ -38,14 +32,13 @@ describe('UserService', () => {
   });
 
   describe('findOne', () => {
-    
     it('should return the user with the given id', async () => {
       jest.spyOn(model, 'findById').mockResolvedValue(mockUserModel);
 
       const result = await service.findOne(1);
 
       expect(result).toEqual(mockUserModel);
-    })
+    });
 
     it('should return null if the user is not found', async () => {
       jest.spyOn(model, 'findById').mockResolvedValue(null);
@@ -53,7 +46,7 @@ describe('UserService', () => {
       const result = await service.findOne(1);
 
       expect(result).toBeNull();
-    })
+    });
   });
 
   describe('getAvatar', () => {
@@ -90,7 +83,7 @@ describe('UserService', () => {
 
       expect(result).toBeNull();
     });
-  }); 
+  });
 
   it('should be defined', () => {
     expect(service).toBeDefined();

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from 'src/users/schemas/users.schema';
+import { User } from '../users/schemas/users.schema';
 import { Model } from 'mongoose';
 
 describe('UserService', () => {
@@ -49,6 +49,7 @@ describe('UserService', () => {
     });
   });
 
+  // TODO: Fix getAvatar test
   describe('getAvatar', () => {
     it('should return the avatar of the user with the given id', async () => {
       jest.spyOn(model, 'findById').mockResolvedValue(mockUserModel);
@@ -67,6 +68,7 @@ describe('UserService', () => {
     });
   });
 
+  // TODO: Fix deleteAvatar test
   describe('deleteAvatar', () => {
     it('should delete the avatar of the user with the given id', async () => {
       jest.spyOn(model, 'findById').mockResolvedValue(mockUserModel);

@@ -2,7 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from 'src/users/schemas/users.schema';
+import { User } from '../users/schemas/users.schema';
+import { ConfigService } from '@nestjs/config';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -23,7 +24,15 @@ describe('UserController', () => {
         UserService,
         {
           provide: getModelToken(User.name),
-          useValue: mockUserModel,
+          useValue: {
+            findById: jest.fn(), // Mock the findById function
+          },
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn(), // Mock the get function of ConfigService
+          },
         },
       ],
     }).compile();
@@ -50,6 +59,7 @@ describe('UserController', () => {
     });
   });
 
+  // TODO: Fix getAvatar test
   describe('getAvatar', () => {
     it('should return the avatar of the user with the given id', async () => {
       jest.spyOn(service, 'getAvatar').mockResolvedValue(mockUserModel.avatar);
@@ -60,6 +70,7 @@ describe('UserController', () => {
     });
   });
 
+  // TODO: Fix deleteAvatar test
   describe('deleteAvatar', () => {
     it('should delete the avatar of the user with the given id', async () => {
       jest.spyOn(service, 'deleteAvatar').mockResolvedValue(null);
